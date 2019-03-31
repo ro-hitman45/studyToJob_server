@@ -4,14 +4,14 @@ import { knex } from "../knex";
 
 import { encrypteR, decrypteR } from "./encrypt";
 
-const userRoutes = [
+const courseRoutes = [
   // AUTH
   {
     path: "/courses",
     method: "get",
     config: {
       auth: {
-        mode: "token"
+        strategy: "token"
       }
     },
     handler: async request => {
@@ -81,4 +81,4 @@ const userRoutes = [
 
 ];
 
-export default userRoutes;
+export default courseRoutes;

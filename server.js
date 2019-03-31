@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import userRoutes from "./src/users";
+import courseRoutes from "./src/courses";
 
 // import routes from "src/routes";
 
@@ -20,8 +21,8 @@ export const enginee = engine;
 
 
 const server = Hapi.server({
-  port: config.port,
-  host: config.host,
+  port: config.server.port,
+  host: config.server.host,
   routes: { cors: { origin: ["*"] } }
 });
 
@@ -54,12 +55,11 @@ async function init() {
 
   server.auth.default("token");
 
-  const allRoutes = [...userRoutes];
-  allRoutes.forEach(item => {
-    server.route(item);
-  });
-
-  // server.route(routes);
+  const allRoutes = [...userRoutes, ...courseRoutes];
+  // allRoutes.forEach(item => {
+  //   server.route(item);
+  // });
+    server.route(allRoutes);
 
   await start();
 }
