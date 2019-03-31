@@ -4,8 +4,10 @@ import { knex } from "../knex";
 
 import { encrypteR, decrypteR } from "./encrypt";
 
+var Joi = require('joi');
+
 const courseRoutes = [
-  // AUTH
+  // get courses list
   {
     path: "/courses",
     method: "get",
@@ -45,6 +47,11 @@ const courseRoutes = [
     config: {
       auth: {
         strategy: "token"
+      },
+      validate:{
+        payload:{
+          edc : Joi.string().required()
+        }
       }
     },
     handler: async request => {

@@ -4,8 +4,10 @@ import { knex } from "../knex";
 
 import { encrypteR, decrypteR } from "./encrypt";
 
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const Joi = require('joi');
 
 const userRoutes = [
   // AUTH
@@ -15,7 +17,12 @@ const userRoutes = [
     config: {
       auth: {
         mode: "optional"
-      }
+      },
+      validate:{
+        payload:{
+          edc : Joi.string().required()
+        }
+      } 
     },
     handler: async request => {
       let daata = decrypteR(request.payload.edc);
@@ -112,7 +119,12 @@ const userRoutes = [
     config: {
       auth: {
         strategy: "token"
-      }
+      },
+      validate:{
+        payload:{
+          edc : Joi.string().required()
+        }
+      } 
     },
     handler: async request => {
       let reply = null;
@@ -218,7 +230,12 @@ const userRoutes = [
     config: {
       auth: {
         strategy: "token"
-      }
+      },
+      validate:{
+        payload:{
+          edc : Joi.string().required()
+        }
+      } 
     },
     handler: async request => {
       const { username, current_psw, new_psw } = decrypteR(request.payload.edc);
